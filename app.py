@@ -1,4 +1,5 @@
-from src.service.io.stdin_talks_parser import StdinTalksParser
+from src.service.io.talk_reader import TalkReader
+from src.service.scheduler.scheduler import Scheduler
 
 __author__ = 'gritt'
 
@@ -6,17 +7,17 @@ __author__ = 'gritt'
 class App:
 
     def __init__(self):
-        self.stdin_talks_parser = StdinTalksParser()
+        self.talk_reader = TalkReader()
+        self.scheduler = Scheduler()
 
     def execute(self):
         try:
 
-            talks = self.stdin_talks_parser.process()
+            talks = self.talk_reader.read_from_stdin()
 
+            tracks = self.scheduler.schedule(talks)
 
         except Exception as ex:
-            print(ex.message)
-        except EnvironmentError as ex:
             print(ex.message)
 
 
