@@ -39,34 +39,39 @@ class Scheduler:
         # every time  bin is closed, the next bin must be with the next shift (circularly)
         current_shift_option = 0
 
-        # the current bin
+        # the current "bin" and it's packages (talks)
         current_shift = 0
 
         while len(self.talks) > 0:
 
             try:
-                # there are no active bin(s)
+                # first iteration, and shifts opening iterations
                 if current_shift == 0:
                     current_shift = Shift()
                     current_shift.set_minutes(
                         self.shift_options[current_shift_option]
                     )
 
+                # find a talk that bests fits in the remaining time
                 best_fitted_index = self.bin_packing.get_best_fitting_talk(
                     current_shift.get_remaining_minutes(),
                     self.talks
                 )
 
+                # schedule the better fitted talk in the shift
                 current_shift.add_talk(self.talks[best_fitted_index])
 
+                # remove talk scheduled
                 self.talks.pop(best_fitted_index)
 
             except Exception as ex:
 
+                # when there no best fit for the remaining time, open a new shift
                 self.shifts.append(current_shift)
 
                 current_shift = 0
 
+                # follow sequence for morning > afternoon > morning.. for due to shift sizes
                 if current_shift_option == 0:
                     current_shift_option = 1
                     continue
@@ -74,7 +79,7 @@ class Scheduler:
                     current_shift_option = 0
                     continue
 
-        # open shift also must be added
+        # unclosed shift (unprocessed remaining time) also must be added
         if current_shift != 0:
             self.shifts.append(current_shift)
 
