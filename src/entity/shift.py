@@ -16,6 +16,9 @@ class Shift:
         self.minutes = minutes
         self.remaining_minutes = minutes
 
+    def get_minutes(self):
+        return self.minutes
+
     def get_remaining_minutes(self):
         return self.remaining_minutes
 
