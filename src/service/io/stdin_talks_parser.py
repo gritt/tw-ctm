@@ -15,21 +15,27 @@ class StdinTalksParser:
 
         for line in sys.stdin:
             try:
-                self._validate(line)
 
-                duration = self._parse_duration(line)
-                name = self._parse_name(line)
-
-                talk = Talk()
-                talk.set_name(name)
-                talk.set_duration(duration)
-
+                talk = self._parse(line)
                 self.talks_list.append(talk)
 
             except Exception as ex:
                 continue
 
         return self.talks_list
+
+    def _parse(self, line):
+
+        self._validate(line)
+
+        duration = self._parse_duration(line)
+        name = self._parse_name(line)
+
+        talk = Talk()
+        talk.set_name(name)
+        talk.set_duration(duration)
+
+        return talk
 
     def _validate(self, line):
 
