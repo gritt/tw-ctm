@@ -4,4 +4,5 @@ __author__ = 'gritt'
 class Track:
 
     def __init__(self):
-        pass
+        self.day = 0
+        self.shifts = []
