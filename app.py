@@ -17,6 +17,21 @@ class App:
 
             tracks = self.scheduler.schedule(talks)
 
+            # TODO @gritt, display and handle clocking logic, implemente more tests and documentation
+
+            for track in tracks:
+
+                print '----Track' + "---" + str(track.get_day())
+
+                for shift in track.get_shifts():
+
+                    print "SHIFT HAS ---" + str(shift.get_minutes()) + "---" + str(shift.get_remaining_minutes())
+
+                    for talk in shift.talks:
+                        print talk.get_name() + "---" + str(talk.get_duration())
+
+
+
         except Exception as ex:
             print(ex.message)
 
