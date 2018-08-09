@@ -28,9 +28,12 @@ class Scheduler:
         self.talks = []
 
     def schedule(self, talks):
+
         self.talks = talks
         self._process_shifts()
         self._process_tracks()
+
+        return self.tracks
 
     def _process_shifts(self):
 
