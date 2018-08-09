@@ -6,12 +6,12 @@ import re
 from src.entity.talk import Talk
 
 
-class StdinTalksParser:
+class TalkReader:
 
     def __init__(self):
         self.talks_list = []
 
-    def process(self):
+    def read_from_stdin(self):
 
         for line in sys.stdin:
             try:
