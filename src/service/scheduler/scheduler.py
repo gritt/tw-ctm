@@ -6,10 +6,10 @@ __author__ = 'gritt'
 
 
 class Scheduler:
-    # from 9 am till 12 noon
+    # minutes from 9am to 12 noon
     MORNING_SHIFT = 180
 
-    # from 13 pm till 17 pm
+    # minutes from 13pm to 17 pm
     AFTERNOON_SHIFT = 240
 
     def __init__(self):
@@ -66,18 +66,16 @@ class Scheduler:
                 # remove from 'processing' list
                 self.talks.pop(best_fitted_index)
 
-            except Exception as ex:
+            except Exception:
+                # when there are no talks that best fit in the remaining time
+                # closed the current shift and open a new one following the sequence for sizes
 
-                # when there's no best fit for the remaining time, open a new shift
                 self.shifts.append(current_shift)
-
                 current_shift = 0
-
-                # follow sequence for morning > afternoon > morning.. due to shift sizes
                 current_shift_option = 1 if current_shift_option == 0 else 0
                 continue
 
-        # unclosed shift (has remaining time) also must be added
+        # unclosed shift also must be added
         if current_shift != 0:
             self.shifts.append(current_shift)
 
@@ -85,74 +83,65 @@ class Scheduler:
 
     def _new_shift(self, option):
 
-        current_shift = Shift()
-        current_shift.set_minutes(self.shift_options[option])
+        shift = Shift()
+        shift.set_minutes(self.shift_options[option])
 
         if self.shift_options[option] == self.MORNING_SHIFT:
-            current_shift.set_start_time(9)
-            current_shift.set_end_time(12)
+            shift.set_start_time(9)
+            shift.set_end_time(12)
 
         if self.shift_options[option] == self.AFTERNOON_SHIFT:
-            current_shift.set_start_time(13)
-            current_shift.set_end_time(17)
+            shift.set_start_time(13)
+            shift.set_end_time(17)
 
-        return current_shift
+        return shift
 
+    # spread shifts into tracks (days) always starting tracks with a morning shift
     def _process_tracks(self):
 
-        # starts with a morning shift
         current_shift_option = 0
         current_track_day = 1
         current_track = 0
 
         while len(self.shifts) > 0:
-
             try:
-
                 index = 0
                 for shift in self.shifts:
 
+                    # creates a new track when there's none open
                     if current_track == 0:
                         current_track = Track()
                         current_track.set_day(current_track_day)
                         current_track.set_shifts_limit(len(self.shift_options))
 
-                    # matched a needed shift (same time), must start with a morning shift
+                    # add shifts to a track when it matches the required option
+                    # (first morning, than afternoon..)
                     if shift.get_minutes() == self.shift_options[current_shift_option]:
 
-                        # adds the current shift in the track
                         current_track.add_shift(shift)
-                        # remove shift from available ones
                         self.shifts.pop(index)
 
-                        # close this track, completed
+                        # close this track, if all shifts are added
                         if current_track.shifts_limit == len(current_track.shifts):
-                            # saves the current track which has been completed
                             self.tracks.append(current_track)
                             current_track = 0
                             current_track_day += 1
 
                         # next shift must be opposite
-                        if current_shift_option == 0:
-                            current_shift_option = 1
-                            index += 1
-                            continue
-                        if current_shift_option == 1:
-                            current_shift_option = 0
-                            index += 1
-                            continue
+                        current_shift_option = 1 if current_shift_option == 0 else 0
+                        index += 1
+                        continue
 
                     index += 1
 
-            except Exception as ex:
-                # saves the current track which has been completed
+            except Exception:
+                # when there space left in the track for more shifts
+                # close the current track and reset for a new one
                 self.tracks.append(current_track)
-
-                # resets so a new track will be created
                 current_track = 0
                 current_track_day += 1
 
-        # unclosed track (has remaining shift(s)) also must be added
+        # unclosed track (might have one shift) also must be added
         if current_track != 0:
             if len(current_track.shifts) > 0:
                 self.tracks.append(current_track)
