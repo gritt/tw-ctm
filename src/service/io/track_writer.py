@@ -47,7 +47,7 @@ class TrackWriter:
             duration = "lightning"
 
         # in order to format the timer (datetime.timedelta)
-        friendly_time = (datetime.datetime(1900, 1, 1) + timer).strftime('%H:%M%p')
+        friendly_time = (datetime.datetime(1900, 1, 1) + timer).strftime('%I:%M%p')
 
         print friendly_time + " " + talk.get_name() + " " + duration
 
