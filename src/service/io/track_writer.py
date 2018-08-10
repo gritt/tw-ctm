@@ -35,7 +35,7 @@ class TrackWriter:
                     timer = timer + datetime.timedelta(minutes=talk.get_duration())
 
                 # prints shift ending (lunch, networking)
-                self._print_shift_ending(shift)
+                self._print_shift_end(shift)
 
             print "\n"
 
@@ -50,7 +50,8 @@ class TrackWriter:
 
         print friendly_time + " " + talk.get_name() + " " + duration
 
-    def _print_shift_ending(self, shift):
+    def _print_shift_end(self, shift):
+
         if shift.get_end_time() == 17:
             print "05:00PM Networking Event"
 
