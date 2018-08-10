@@ -35,51 +35,47 @@ class Scheduler:
 
         return self.tracks
 
+    # spread talks into shifts of different sizes (morning, afternoon)
     def _process_shifts(self):
 
-        # whether the current shift is morning or afternoon, which defines the bin size
-        # every time  bin is closed, the next bin must be with the next shift (circularly)
-        current_shift_option = 0
+        # the shift defines the "bin" size
+        # talks are the package
 
-        # the current "bin" and it's packages (talks)
+        # every track (day) starts in the morning
+        # a sequence must be followed when a new shift is required (morning -> afternoon -> morning..)
+
+        current_shift_option = 0
         current_shift = 0
 
         while len(self.talks) > 0:
-
             try:
-                # first iteration, and shifts opening iterations
-                if current_shift == 0:
-                    current_shift = Shift()
-                    current_shift.set_minutes(
-                        self.shift_options[current_shift_option]
-                    )
 
-                # find a talk that bests fits in the remaining time
+                # creates a new shift when there's none open
+                if current_shift == 0:
+                    current_shift = self._new_shift(current_shift_option)
+
+                # find a talk that bests fits the remaining time available in the shift
                 best_fitted_index = self.bin_packing.get_best_fitting_talk(
                     current_shift.get_remaining_minutes(),
                     self.talks
                 )
 
-                # schedule the better fitted talk in the shift
+                # schedule the better fitted talk
                 current_shift.add_talk(self.talks[best_fitted_index])
 
-                # remove talk scheduled
+                # remove from 'processing' list
                 self.talks.pop(best_fitted_index)
 
             except Exception as ex:
 
-                # when there no best fit for the remaining time, open a new shift
+                # when there's no best fit for the remaining time, open a new shift
                 self.shifts.append(current_shift)
 
                 current_shift = 0
 
-                # follow sequence for morning > afternoon > morning.. for due to shift sizes
-                if current_shift_option == 0:
-                    current_shift_option = 1
-                    continue
-                if current_shift_option == 1:
-                    current_shift_option = 0
-                    continue
+                # follow sequence for morning > afternoon > morning.. due to shift sizes
+                current_shift_option = 1 if current_shift_option == 0 else 0
+                continue
 
         # unclosed shift (has remaining time) also must be added
         if current_shift != 0:
@@ -87,12 +83,26 @@ class Scheduler:
 
         return self.shifts
 
+    def _new_shift(self, option):
+
+        current_shift = Shift()
+        current_shift.set_minutes(self.shift_options[option])
+
+        if self.shift_options[option] == self.MORNING_SHIFT:
+            current_shift.set_start_time(9)
+            current_shift.set_end_time(12)
+
+        if self.shift_options[option] == self.AFTERNOON_SHIFT:
+            current_shift.set_start_time(13)
+            current_shift.set_end_time(17)
+
+        return current_shift
+
     def _process_tracks(self):
 
         # starts with a morning shift
         current_shift_option = 0
         current_track_day = 1
-
         current_track = 0
 
         while len(self.shifts) > 0:
