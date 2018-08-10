@@ -1,42 +1,43 @@
 # Conference Track Management
 
 This is a Bin Packing like problem, the strategy behind this algorithm is to find the best fit of to spread a set os numbers 
-in a given amount of bin(s) and size(s). In this solution, because the shifts are variable in size 
-(morning has 180mins, afternoon has 240mins), we consider the shifts as being the "bins" 
-and the talk and their durations as being the packages, 
-after spreading the talks in shifts, the shifts also are spread in tracks (days), 
-following an order (morning -> afternoon -> morning..).
+in a given amount of bin(s) and size(s). 
 
-# Requirements:
+In this solution, because the shifts are variable in size (morning has 180mins, afternoon has 240mins), 
+we consider the shifts as being the "bins" and the talk and their durations as being the packages, 
+after spreading the talks in shifts, the shifts also are spread in tracks (days), following an 
+order (morning -> afternoon -> morning..).
+
+## Requirements:
 
     python 2.7+
 
-# Instructions to run the project
+## Instructions to run the project
 
 ###### In your unix like command line type:
     
     $: python app.py < tests/input.txt
 
-# Testing with python's unittest
+## Testing with python's unittest
 
 
-##### All suite at once
-    python -m unittest discover -s src 
+###### All suite at once
+    $: python -m unittest discover -s src 
     
 
-##### Single modules
+###### Single modules
     
-    python -m unittest src.entity.tests.test_shift
-    python -m unittest src.entity.tests.test_track
+    $: python -m unittest src.entity.tests.test_shift
+    $: python -m unittest src.entity.tests.test_track
     
-    python -m unittest src.service.scheduler.tests.test_scheduler
-    python -m unittest src.service.scheduler.tests.test_bin_packing
+    $: python -m unittest src.service.scheduler.tests.test_scheduler
+    $: python -m unittest src.service.scheduler.tests.test_bin_packing
     
-    python -m unittest src.service.io.tests.test_talk_reader
-    python -m unittest src.service.io.tests.test_track_writer
+    $: python -m unittest src.service.io.tests.test_talk_reader
+    $: python -m unittest src.service.io.tests.test_track_writer
     
 
-# Design
+## Design
 
 First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, 
 being a non typed language allows to prototype ideas very fast, also, 
@@ -54,11 +55,11 @@ The main logic, that spreads the talks and shifts, according to the best fit for
 is contained in the service classes (Scheduler and BinPacking).
 
 
-# References
+###### References
 
-https://en.wikipedia.org/wiki/Bin_packing_problem
-https://www.python.org/dev/peps/pep-0008/#naming-conventions
-https://docs.python.org/3/library/unittest.html#organizing-tests
-https://medium.com/@dasagrivamanu/python-naming-conventions-the-10-points-you-should-know-149a9aa9f8c7
-https://docs.python.org/2/library/datetime.html
+1. https://en.wikipedia.org/wiki/Bin_packing_problem
+2. https://www.python.org/dev/peps/pep-0008/#naming-conventions
+3. https://docs.python.org/3/library/unittest.html#organizing-tests
+4. https://medium.com/@dasagrivamanu/python-naming-conventions-the-10-points-you-should-know-149a9aa9f8c7
+5. https://docs.python.org/2/library/datetime.html
 
