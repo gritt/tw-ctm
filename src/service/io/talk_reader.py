@@ -11,6 +11,7 @@ class TalkReader:
     def __init__(self):
         self.talks_list = []
 
+    # parses all lines read from std input and creates tracks
     def read_from_stdin(self):
 
         for line in sys.stdin:
@@ -24,6 +25,7 @@ class TalkReader:
 
         return self.talks_list
 
+    # parses a line (string) and returns a Talk
     def _parse(self, line):
 
         self._parse_line(line)
