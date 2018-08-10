@@ -16,7 +16,7 @@ order (morning -> afternoon -> morning..).
 
 ###### In your unix like command line type:
     
-    $: python app.py < tests/input.txt
+    $: python app.py < input.txt
 
 ## Testing with python's unittest
 
