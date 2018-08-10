@@ -20,6 +20,22 @@ following an order (morning -> afternoon -> morning..).
 # Testing with python's unittest
 
 
+##### All suite at once
+    python -m unittest discover -s src 
+    
+
+##### Single modules
+    
+    python -m unittest src.entity.tests.test_shift
+    python -m unittest src.entity.tests.test_track
+    
+    python -m unittest src.service.scheduler.tests.test_scheduler
+    python -m unittest src.service.scheduler.tests.test_bin_packing
+    
+    python -m unittest src.service.io.tests.test_talk_reader
+    python -m unittest src.service.io.tests.test_track_writer
+    
+
 # Design
 
 First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, 
