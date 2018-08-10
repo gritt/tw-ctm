@@ -9,12 +9,12 @@ class TalkReaderTestCase(unittest.TestCase):
         self.talk_reader = TalkReader()
 
     @unittest.expectedFailure
-    def test_validate_failure_with_empty(self):
-        self.talk_reader._validate(" ")
+    def test_parse_line_failure_with_empty(self):
+        self.talk_reader._parse_line(" ")
 
     @unittest.expectedFailure
-    def test_validate_failure_with_new_line(self):
-        self.talk_reader._validate("\n")
+    def test_parse_line_failure_with_new_line(self):
+        self.talk_reader._parse_line("\n")
 
     @unittest.expectedFailure
     def test_parse_duration_failure_without_time(self):
