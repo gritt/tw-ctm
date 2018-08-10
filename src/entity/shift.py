@@ -12,15 +12,15 @@ class Shift:
 
         self.talks = []
 
+    def set_start_time(self, start_time):
+        self.start_time = start_time
+
+    def set_end_time(self, end_time):
+        self.end_time = end_time
+
     def set_minutes(self, minutes):
         self.minutes = minutes
         self.remaining_minutes = minutes
-
-    def get_minutes(self):
-        return self.minutes
-
-    def get_remaining_minutes(self):
-        return self.remaining_minutes
 
     def add_talk(self, talk):
         if self.remaining_minutes < talk.get_duration():
@@ -28,3 +28,15 @@ class Shift:
 
         self.remaining_minutes -= talk.get_duration()
         self.talks.append(talk)
+
+    def get_start_time(self):
+        return self.start_time
+
+    def get_end_time(self):
+        return self.end_time
+
+    def get_minutes(self):
+        return self.minutes
+
+    def get_remaining_minutes(self):
+        return self.remaining_minutes
