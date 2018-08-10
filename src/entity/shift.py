@@ -6,10 +6,8 @@ class Shift:
     def __init__(self):
         self.start_time = 0
         self.end_time = 0
-
         self.minutes = 0
         self.remaining_minutes = 0
-
         self.talks = []
 
     def set_start_time(self, start_time):
