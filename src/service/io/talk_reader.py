@@ -1,9 +1,9 @@
-__author__ = 'gritt'
-
 import sys
 import re
 
 from src.entity.talk import Talk
+
+__author__ = 'gritt'
 
 
 class TalkReader:
@@ -26,7 +26,7 @@ class TalkReader:
 
     def _parse(self, line):
 
-        self._validate(line)
+        self._parse_line(line)
 
         duration = self._parse_duration(line)
         name = self._parse_name(line)
@@ -37,7 +37,7 @@ class TalkReader:
 
         return talk
 
-    def _validate(self, line):
+    def _parse_line(self, line):
 
         if line == "\n" or len(line.strip()) == 0:
             raise Exception("Error: invalid empty line given")
