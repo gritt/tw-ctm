@@ -32,7 +32,7 @@ class TrackWriter:
                     self._print_talk(talk, timer)
 
                     # next talk starts at current time + ongoing talk duration
-                    timer = timer + datetime.timedelta(minutes=talk.get_duration())
+                    timer += datetime.timedelta(minutes=talk.get_duration())
 
                 # prints shift ending (lunch, networking)
                 self._print_shift_end(shift)
