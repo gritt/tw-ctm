@@ -37,8 +37,6 @@ class TrackWriter:
                 # prints shift ending (lunch, networking)
                 self._print_shift_end(shift)
 
-            print "\n"
-
     def _print_talk(self, talk, timer):
 
         duration = str(talk.get_duration()) + 'min'
