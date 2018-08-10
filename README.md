@@ -1,12 +1,8 @@
 # Conference Track Management
 
-This is a Bin Packing like problem, the strategy behind this algorithm is to find the best fit of to spread a set os numbers 
-in a given amount of bin(s) and size(s). 
+This is a Bin Packing like problem, the strategy behind this algorithm is to find the best fit of to spread a set os numbers in a given amount of bin(s) and size(s). 
 
-In this solution, because the shifts are variable in size (morning has 180mins, afternoon has 240mins), 
-we consider the shifts as being the "bins" and the talk and their durations as being the packages, 
-after spreading the talks in shifts, the shifts also are spread in tracks (days), following an 
-order (morning -> afternoon -> morning..).
+In this solution, because the shifts are variable in size (morning has 180mins, afternoon has 240mins), we consider the shifts as being the "bins" and the talk and their durations as being the packages, after spreading the talks in shifts, the shifts also are spread in tracks (days), following an order (morning -> afternoon -> morning..).
 
 ## Requirements:
 
@@ -39,20 +35,15 @@ order (morning -> afternoon -> morning..).
 
 ## Design
 
-First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, 
-being a non typed language allows to prototype ideas very fast, also, 
-python's built in debugger and unit testing framework works like a PyCharm (ba tum tss) in my IDE.
+First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, being a non typed language allows to prototype ideas very fast, also, python's built in debugger and unit testing framework works like a PyCharm (ba tum tss) in my IDE.
 
 ## Architecture
 
-In order to spreads the talks in bins with different sizes, there is an aggregation between classes, 
-A Track(day) has multiple Shifts(morning, afternoon), and each Shift contains the best fitted number of Talks.
+In order to spreads the talks in bins with different sizes, there is an aggregation between classes, A Track(day) has multiple Shifts(morning, afternoon), and each Shift contains the best fitted number of Talks.
 
-There are classes to handle IO operations, like reading and parsing the stdin contents into a list of Talks, 
-and further, printing the processed schedule of Tracks.
+There are classes to handle IO operations, like reading and parsing the stdin contents into a list of Talks, and further, printing the processed schedule of Tracks.
 
-The main logic, that spreads the talks and shifts, according to the best fit for their sizes, 
-is contained in the service classes (Scheduler and BinPacking).
+The main logic, that spreads the talks and shifts, according to the best fit for their sizes, is contained in the service classes (Scheduler and BinPacking).
 
 
 ###### References
