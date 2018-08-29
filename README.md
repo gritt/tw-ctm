@@ -35,7 +35,7 @@ In this solution, because the shifts are variable in size (morning has 180mins, 
 
 ## Design
 
-First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, being a non typed language allows to prototype ideas very fast, also, python's built in debugger and unit testing framework works like a PyCharm (ba tum tss) in my IDE.
+First, I've opted to develop it in python mostly because of familiarity concerns over the other languages, being a non typed language allows to prototype ideas very fast, also, python's built in debugger and unit testing framework works like a PyCharm (ba dum tss) in my IDE.
 
 ## Architecture
 
