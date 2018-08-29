@@ -16,6 +16,11 @@ class Scheduler:
 
         self.bin_packing = BinPacking()
 
+        # TODO @gritt, shift options must be an array of ints (minutes) => strings (shift name)
+        # TODO @gritt, to build the next shift the sorting must be respected, morning.. afternoon... evening .. night
+        # TODO @gritt, actually there can be any amount of shifts and different names
+        # TODO @gritt, the total amount of shifts cannot be greater than one day, 1440 minutes
+
         # the shifts of each track, or, day, are considered dynamically sized bins
         # the order to add new bins follows the order of the following list
         self.shift_options = [
@@ -81,6 +86,7 @@ class Scheduler:
 
         return self.shifts
 
+    # TODO @gritt,  delegate shift building logic to a new builder class if requires more logic than this
     def _new_shift(self, option):
 
         shift = Shift()
