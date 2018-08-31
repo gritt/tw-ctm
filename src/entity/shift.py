@@ -27,6 +27,7 @@ class Shift:
         self.remaining_minutes -= talk.get_duration()
         self.talks.append(talk)
 
+    # TODO @gritt, link a gap within talk's indices, so that the gap can be printed in the proper position in the schedule
     def add_interval(self, interval):
         if self.remaining_minutes < interval.get_duration():
             raise Exception("Error: this interval does not fit in this shift")
