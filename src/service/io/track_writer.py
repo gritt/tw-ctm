@@ -27,9 +27,16 @@ class TrackWriter:
                     minutes=00
                 )
 
+                intervals = shift.get_interval_minutes()
+
                 # prints talks scheduled for this shift
                 for talk in shift.talks:
+
                     self._print_talk(talk, timer)
+
+                    if intervals >= 5:
+                        timer += datetime.timedelta(minutes=5)
+                        intervals -= 5
 
                     # next talk starts at current time + ongoing talk duration
                     timer += datetime.timedelta(minutes=talk.get_duration())
