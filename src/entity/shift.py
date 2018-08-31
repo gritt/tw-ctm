@@ -27,6 +27,12 @@ class Shift:
         self.remaining_minutes -= talk.get_duration()
         self.talks.append(talk)
 
+    def add_interval(self, interval):
+        if self.remaining_minutes < interval.get_duration():
+            raise Exception("Error: this interval does not fit in this shift")
+
+        self.remaining_minutes -= interval.get_duration()
+
     def get_start_time(self):
         return self.start_time
 
