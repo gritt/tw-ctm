@@ -10,6 +10,30 @@ class SchedulerTestCase(unittest.TestCase):
     def setUp(self):
         self.scheduler = Scheduler()
 
+    def test_process_shifts_with_interval(self):
+        talk1 = Talk()
+        talk1.set_duration(55)
+        talk1.set_name("Talk A")
+
+        talk2 = Talk()
+        talk2.set_duration(55)
+        talk2.set_name("Talk B")
+
+        talk3 = Talk()
+        talk3.set_duration(55)
+        talk3.set_name("Talk C")
+
+        talks = []
+        talks.append(talk1)
+        talks.append(talk2)
+        talks.append(talk3)
+
+        self.scheduler.talks = talks
+
+        shifts = self.scheduler._process_shifts()
+
+        self.assertEquals(1, len(shifts))
+
     def test_process_shifts_spliting(self):
         talk1 = Talk()
         talk1.set_duration(80)
