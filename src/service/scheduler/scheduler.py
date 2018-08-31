@@ -1,5 +1,6 @@
 from src.entity.shift import Shift
 from src.entity.track import Track
+from src.entity.interval import Interval
 from src.service.scheduler.bin_packing import BinPacking
 
 __author__ = 'gritt'
@@ -71,6 +72,10 @@ class Scheduler:
                 # remove from 'processing' list
                 self.talks.pop(best_fitted_index)
 
+                # add gap of 5 minutes
+                interval = self._new_interval()
+                current_shift.add_interval(interval)
+
             except Exception:
                 # when there are no talks that best fit in the remaining time
                 # closed the current shift and open a new one following the sequence for sizes
@@ -101,6 +106,13 @@ class Scheduler:
             shift.set_end_time(17)
 
         return shift
+
+    def _new_interval(self):
+
+        interval = Interval()
+        interval.set_duration(5)
+
+        return interval
 
     # spread shifts into tracks (days) always starting tracks with a morning shift
     def _process_tracks(self):
