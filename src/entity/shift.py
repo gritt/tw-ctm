@@ -8,6 +8,7 @@ class Shift:
         self.end_time = 0
         self.minutes = 0
         self.remaining_minutes = 0
+        self.interval_minutes = 0
         self.talks = []
 
     def set_start_time(self, start_time):
@@ -33,6 +34,7 @@ class Shift:
             raise Exception("Error: this interval does not fit in this shift")
 
         self.remaining_minutes -= interval.get_duration()
+        self.interval_minutes += interval.get_duration()
 
     def get_start_time(self):
         return self.start_time
@@ -45,3 +47,6 @@ class Shift:
 
     def get_remaining_minutes(self):
         return self.remaining_minutes
+
+    def get_interval_minutes(self):
+        return self.interval_minutes
